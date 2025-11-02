@@ -1,0 +1,247 @@
+.profile-container {
+  min-height: 100vh;
+  background-color: #f5f7f4;
+}
+
+.profile-content {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.profile-content h2 {
+  color: #2d5016;
+  font-size: 28px;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+.error-message {
+  padding: 15px 20px;
+  background-color: #f7e6e6;
+  border-left: 4px solid #d32f2f;
+  color: #c62828;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: #5a7d3e;
+  font-size: 18px;
+}
+
+.profile-view {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.profile-header {
+  padding: 25px;
+  background: linear-gradient(135deg, #2d5016 0%, #5a7d3e 100%);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-header h3 {
+  font-size: 24px;
+  margin: 0;
+  font-weight: 700;
+}
+
+.role-badge {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.role-farmer {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.role-customer {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.profile-info {
+  padding: 25px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #e0e8d5;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row label {
+  color: #2d5016;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.info-row span {
+  color: #5a7d3e;
+  font-size: 14px;
+}
+
+.btn-edit {
+  width: 100%;
+  padding: 14px;
+  background-color: #5a7d3e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+}
+
+.btn-edit:hover {
+  background-color: #4a6b2f;
+  transform: translateY(-2px);
+}
+
+.profile-edit {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.3s ease;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group:last-of-type {
+  margin-bottom: 30px;
+}
+
+.form-group label {
+  display: block;
+  color: #2d5016;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #d1e0c5;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: white;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #5a7d3e;
+  box-shadow: 0 3px 10px rgba(90, 125, 62, 0.15);
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-save,
+.btn-cancel {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-save {
+  background-color: #2d5016;
+  color: white;
+}
+
+.btn-save:hover:not(:disabled) {
+  background-color: #1f3810;
+  transform: translateY(-2px);
+}
+
+.btn-save:disabled {
+  background-color: #a8c190;
+  cursor: not-allowed;
+}
+
+.btn-cancel {
+  background-color: white;
+  color: #5a7d3e;
+  border: 2px solid #5a7d3e;
+}
+
+.btn-cancel:hover:not(:disabled) {
+  background-color: #f0f7e6;
+}
+
+.btn-cancel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .profile-content {
+    padding: 20px 15px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .profile-info,
+  .profile-edit {
+    padding: 20px 15px;
+  }
+
+  .info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}
