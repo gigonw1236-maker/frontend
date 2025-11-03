@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
 
     try {
       setLoading(true);
-      await cartAPI.addToCart(product.id, 1);
+      await cartAPI.addToCart(product.ProductId, 1);
       setAddedToCart(true);
       setTimeout(() => setAddedToCart(false), 2000);
     } catch (err) {
@@ -36,15 +36,15 @@ const ProductCard = ({ product }) => {
   return (
     <div className="product-card">
       <div className="product-image">
-        {product.ImageURL ? (
-          <img src={product.ImageURL} alt={product.Name} />
+        {product.ImageUrl ? (
+          <img src={product.ImageUrl} alt={product.ProductName} />
         ) : (
           <div className="placeholder-image">Зображення відсутнє</div>
         )}
       </div>
 
       <div className="product-info">
-        <h3 className="product-name">{product.Name}</h3>
+        <h3 className="product-name">{product.ProductName}</h3>
 
         <p className="product-description">
           {product.Description?.substring(0, 80)}...
@@ -56,7 +56,7 @@ const ProductCard = ({ product }) => {
           </div>
 
           <div className="stock-info">
-            {product.Stock > 0 ? (
+            {product.StockQuantity > 0 ? (
               <span className="in-stock">В наявності</span>
             ) : (
               <span className="out-of-stock">Нема в наявності</span>
@@ -74,7 +74,7 @@ const ProductCard = ({ product }) => {
 
           <button
             onClick={handleAddToCart}
-            disabled={loading || product.Stock === 0}
+            disabled={loading || product.StockQuantity === 0}
             className={`btn-cart ${addedToCart ? 'added' : ''}`}
           >
             {addedToCart ? '✓ Додано' : 'В кошик'}

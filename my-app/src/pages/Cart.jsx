@@ -19,9 +19,10 @@ const Cart = () => {
     try {
       setLoading(true);
       const data = await cartAPI.getCart();
-      setCartItems(data.items || []);
+      setCartItems(Array.isArray(data) ? data : data.items || []);
     } catch (err) {
       setError('Не вдалося завантажити кошик');
+      setCartItems([]);
     } finally {
       setLoading(false);
     }
@@ -45,9 +46,8 @@ const Cart = () => {
     try {
       setOrderLoading(true);
       const orderData = cartItems.map(item => ({
-        productId: item.ProductID,
-        quantity: item.Quantity,
-        price: item.Price,
+        ProductId: item.ProductId,
+        Quantity: item.Quantity,
       }));
 
       await orderAPI.createOrder(orderData);
@@ -83,10 +83,10 @@ const Cart = () => {
           <div className="cart-layout">
             <div className="cart-items">
               {cartItems.map(item => (
-                <div key={item.id} className="cart-item">
+                <div key={item.CartItemId} className="cart-item">
                   <div className="item-image">
-                    {item.ImageURL ? (
-                      <img src={item.ImageURL} alt={item.ProductName} />
+                    {item.ImageUrl ? (
+                      <img src={item.ImageUrl} alt={item.ProductName} />
                     ) : (
                       <div className="placeholder">Нема зображення</div>
                     )}
@@ -106,7 +106,7 @@ const Cart = () => {
                   </div>
 
                   <button
-                    onClick={() => handleRemoveItem(item.id)}
+                    onClick={() => handleRemoveItem(item.CartItemId)}
                     className="btn-remove"
                   >
                     ✕

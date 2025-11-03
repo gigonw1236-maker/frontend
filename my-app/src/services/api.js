@@ -94,20 +94,26 @@ export const cartAPI = {
   addToCart: (productId, quantity) =>
     apiCall('/cart', {
       method: 'POST',
-      body: JSON.stringify({ ProductID: productId, Quantity: quantity }),
+      body: JSON.stringify({ ProductId: productId, Quantity: quantity }),
     }),
 
   getCart: () => apiCall('/cart'),
 
   removeFromCart: (cartItemId) =>
     apiCall(`/cart/${cartItemId}`, { method: 'DELETE' }),
+
+  updateCart: (cartItemId, quantity) =>
+    apiCall(`/cart/${cartItemId}`, {
+      method: 'PUT',
+      body: JSON.stringify({ Quantity: quantity }),
+    }),
 };
 
 export const orderAPI = {
-  createOrder: (cartItems) =>
+  createOrder: (items) =>
     apiCall('/orders', {
       method: 'POST',
-      body: JSON.stringify({ Items: cartItems }),
+      body: JSON.stringify({ items }),
     }),
 
   getOrders: () => apiCall('/orders'),

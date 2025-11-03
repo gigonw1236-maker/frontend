@@ -16,9 +16,10 @@ const Orders = () => {
     try {
       setLoading(true);
       const data = await orderAPI.getOrders();
-      setOrders(data.orders || []);
+      setOrders(Array.isArray(data) ? data : data.orders || []);
     } catch (err) {
       setError('Не вдалося завантажити замовлення');
+      setOrders([]);
     } finally {
       setLoading(false);
     }
@@ -63,11 +64,11 @@ const Orders = () => {
         ) : (
           <div className="orders-list">
             {orders.map(order => (
-              <div key={order.id} className="order-card">
+              <div key={order.OrderId} className="order-card">
                 <div className="order-header">
                   <div>
-                    <h3>Замовлення №{order.id}</h3>
-                    <p className="order-date">{formatDate(order.CreatedAt)}</p>
+                    <h3>Замовлення №{order.OrderId}</h3>
+                    <p className="order-date">{formatDate(order.OrderDate)}</p>
                   </div>
                   <div className={`order-status status-${order.Status.toLowerCase()}`}>
                     {getStatusLabel(order.Status)}
@@ -76,11 +77,11 @@ const Orders = () => {
 
                 <div className="order-items">
                   <h4>Товари:</h4>
-                  {order.Items && order.Items.length > 0 ? (
+                  {order.items && order.items.length > 0 ? (
                     <ul>
-                      {order.Items.map((item, index) => (
+                      {order.items.map((item, index) => (
                         <li key={index}>
-                          {item.ProductName} - {item.Quantity} шт. × {item.Price.toFixed(2)} грн
+                          {item.ProductName} - {item.Quantity} шт. × {item.UnitPrice.toFixed(2)} грн
                         </li>
                       ))}
                     </ul>

@@ -12,11 +12,11 @@ const AddProduct = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
-    Name: '',
+    ProductName: '',
     Description: '',
     Price: '',
-    Stock: '',
-    CategoryID: '',
+    StockQuantity: '',
+    CategoryId: '',
     Image: null,
   });
 
@@ -31,9 +31,10 @@ const AddProduct = () => {
   const loadCategories = async () => {
     try {
       const data = await categoryAPI.getCategories();
-      setCategories(data.categories || []);
+      setCategories(Array.isArray(data) ? data : data.categories || []);
     } catch (err) {
       setError('Не вдалося завантажити категорії');
+      setCategories([]);
     }
   };
 
@@ -59,7 +60,7 @@ const AddProduct = () => {
     e.preventDefault();
     setError('');
 
-    if (!formData.Name || !formData.Price || !formData.Stock || !formData.CategoryID) {
+    if (!formData.ProductName || !formData.Price || !formData.StockQuantity || !formData.CategoryId) {
       setError('Заповніть всі обов\'язкові поля');
       return;
     }
@@ -67,14 +68,14 @@ const AddProduct = () => {
     try {
       setLoading(true);
       const data = new FormData();
-      data.append('Name', formData.Name);
+      data.append('ProductName', formData.ProductName);
       data.append('Description', formData.Description);
       data.append('Price', formData.Price);
-      data.append('Stock', formData.Stock);
-      data.append('CategoryID', formData.CategoryID);
+      data.append('StockQuantity', formData.StockQuantity);
+      data.append('CategoryId', formData.CategoryId);
 
       if (formData.Image) {
-        data.append('image', formData.Image);
+        data.append('Image', formData.Image);
       }
 
       await productAPI.createProduct(data);
@@ -100,8 +101,8 @@ const AddProduct = () => {
             <label>Назва товару *</label>
             <input
               type="text"
-              name="Name"
-              value={formData.Name}
+              name="ProductName"
+              value={formData.ProductName}
               onChange={handleInputChange}
               placeholder="Введіть назву товару"
               disabled={loading}
@@ -141,8 +142,8 @@ const AddProduct = () => {
               <label>Кількість на складі *</label>
               <input
                 type="number"
-                name="Stock"
-                value={formData.Stock}
+                name="StockQuantity"
+                value={formData.StockQuantity}
                 onChange={handleInputChange}
                 placeholder="0"
                 min="0"
@@ -155,16 +156,16 @@ const AddProduct = () => {
           <div className="form-group">
             <label>Категорія *</label>
             <select
-              name="CategoryID"
-              value={formData.CategoryID}
+              name="CategoryId"
+              value={formData.CategoryId}
               onChange={handleInputChange}
               disabled={loading || categories.length === 0}
               required
             >
               <option value="">Оберіть категорію</option>
               {categories.map(cat => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
+                <option key={cat.CategoryId} value={cat.CategoryId}>
+                  {cat.CategoryName}
                 </option>
               ))}
             </select>

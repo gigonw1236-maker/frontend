@@ -28,9 +28,10 @@ const Home = () => {
     try {
       setLoading(true);
       const data = await productAPI.getProducts();
-      setProducts(data.products || []);
+      setProducts(Array.isArray(data) ? data : data.products || []);
     } catch (err) {
       setError('Не вдалося завантажити товари');
+      setProducts([]);
     } finally {
       setLoading(false);
     }
@@ -39,9 +40,10 @@ const Home = () => {
   const loadCategories = async () => {
     try {
       const data = await categoryAPI.getCategories();
-      setCategories(data.categories || []);
+      setCategories(Array.isArray(data) ? data : data.categories || []);
     } catch (err) {
       console.error('Помилка завантаження категорій:', err);
+      setCategories([]);
     }
   };
 
@@ -55,7 +57,7 @@ const Home = () => {
     try {
       setLoading(true);
       const data = await productAPI.searchProducts(searchQuery);
-      setProducts(data.products || []);
+      setProducts(Array.isArray(data) ? data : data.products || []);
     } catch (err) {
       setError('Помилка при пошуку');
     } finally {
@@ -64,7 +66,7 @@ const Home = () => {
   };
 
   const filteredProducts = products.filter(product => {
-    const matchesCategory = !selectedCategory || product.CategoryID === parseInt(selectedCategory);
+    const matchesCategory = !selectedCategory || product.CategoryId === parseInt(selectedCategory);
     const matchesPrice = product.Price >= minPrice && product.Price <= maxPrice;
     return matchesCategory && matchesPrice;
   });
